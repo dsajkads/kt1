@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление числа в таблицу</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+        }
+        th, td {
+            border: 1px solid black;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<button onclick="addRandomNumber()">Добавить число</button>
+<br><br>
+
+<table id="numberTable">
+    <!-- Empty initially, will be populated by JavaScript -->
+</table>
+
+<script>
+    function addRandomNumber() {
+        let randomNumber = Math.floor(Math.random() * 100);
+
+        let table = document.getElementById("numberTable");
+
+        // Find the first row with less than 6 cells or create a new row
+        let rows = table.getElementsByTagName("tr");
+        let lastRow = rows[rows.length - 1];
+
+        if (!lastRow || lastRow.cells.length === 6) {
+            lastRow = table.insertRow();
+        }
+
+        let cell = lastRow.insertCell();
+
+        let cellColor = randomNumber >= 50 ? "orange" : "white";
+        cell.style.backgroundColor = cellColor;
+
+        cell.innerText = randomNumber;
+    }
+
+    // Populate the table with initial numbers
+    let numbers = [];
+    for (let i = 0; i < 30; i++) {
+        numbers.push(Math.floor(Math.random() * 100));
+    }
+
+    let table = document.getElementById("numberTable");
+    for (let i = 0; i < 5; i++) {
+        let row = table.insertRow();
+        for (let j = 0; j < 6; j++) {
+            let index = i * 6 + j;
+            let cellValue = numbers[index];
+            let cellColor = cellValue >= 50 ? "orange" : "white";
+
+            let cell = row.insertCell();
+            cell.style.backgroundColor = cellColor;
+            cell.innerText = cellValue;
+        }
+    }
+</script>
+
+</body>
+</html>
